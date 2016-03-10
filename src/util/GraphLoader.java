@@ -41,5 +41,7 @@ public class GraphLoader {
             }
             g.addEdge(v1, v2);
         }
+        
+        sc.close();
     }
 }

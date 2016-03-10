@@ -10,7 +10,6 @@ package graph.grader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -56,7 +55,6 @@ public class EgoGrader extends Grader {
                 HashMap<Integer, HashSet<Integer>> res = graph.getEgonet(i).exportGraph();
                 BufferedReader br = new BufferedReader(new FileReader("data/ego_answers/ego_" + i + ".txt"));
                 String next;
-                int count = 0;
                 boolean failed = false;
                 // Scan though the file
                 while ((next = br.readLine()) != null) {
@@ -84,7 +82,6 @@ public class EgoGrader extends Grader {
                         failed = true;
                         break;
                     }
-                    count++;
                 }
                 if (!failed) {
                     feedback += "PASSED.";
