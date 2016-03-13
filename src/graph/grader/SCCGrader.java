@@ -43,6 +43,11 @@ public class SCCGrader extends Grader {
                 break;
             }
         }
+        if (grader.testsPassed < grader.totalTests) {
+        	grader.feedback = "Some tests failed. Please check the following and try again:\n" + grader.feedback;
+        } else {
+        	grader.feedback = "All tests passed. Congrats!\n" + grader.feedback;
+        }
         if (infinite) {
             grader.feedback += "Your program entered an infinite loop or took longer than 30 seconds to finish.";
         }
@@ -50,7 +55,6 @@ public class SCCGrader extends Grader {
         System.out.close();
     }
 
-    @Override
     public void run() {
 
         try {
@@ -62,7 +66,7 @@ public class SCCGrader extends Grader {
                 String answerFile = "data/scc_answers/answer" + (i + 1);
                 GraphLoader.loadGraph(g, "data/scc/T" + (i +1));
                 BufferedReader br = new BufferedReader(new FileReader(answerFile));
-                feedback += appendFeedback(i + 1, "\\nGRAPH: T" + (i + 1));
+                feedback += appendFeedback(i + 1, "\nGRAPH: T" + (i + 1));
 
                 // build list from answer
                 List<Set<Integer>> answer = new ArrayList<Set<Integer>>();
@@ -116,7 +120,7 @@ public class SCCGrader extends Grader {
                     }
                         
 
-                    // check if learner result constains SCC from answer file
+                    // check if learner result contains SCC from answer file
                     if(!sccs.contains(answerSCC)) {
                         if(!testFailed) {
                             testFailed = true;
@@ -124,7 +128,7 @@ public class SCCGrader extends Grader {
                         }
                         feedback += "Your result did not contain the scc on line "
                                      + (j+1) + " in \"" + answerFile + "\"";
-                        feedback += "\\n";
+                        feedback += "\n";
                         testsPassed--;
                     }
 
@@ -134,11 +138,11 @@ public class SCCGrader extends Grader {
                             testFailed = true;
                             feedback += "FAILED. ";
                         }
-                        feedback += "Your result contained an extra SCC : ";
+                        feedback += "Your result contained an extra SCC: ";
                         for(Integer id : scc) {
                             feedback += id + " ";
                         }
-                        feedback += "\\n";
+                        feedback += "\n";
                         testsPassed--;
                     }
 
@@ -156,7 +160,7 @@ public class SCCGrader extends Grader {
                         for(Integer id : scc) {
                             feedback += id + " ";
                         }
-                        feedback += "\\n";
+                        feedback += "\n";
                         testsPassed--;
                     }
 
@@ -170,7 +174,7 @@ public class SCCGrader extends Grader {
                 br.close();
             }
         } catch (Exception e) {
-            feedback = "An error occurred during runtime.\\n" + feedback + "\\nError during runtime: " + e;
+            feedback = "An error occurred during runtime.\n" + feedback + "\nError during runtime: " + e;
         }
     }
 }

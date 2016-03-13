@@ -16,7 +16,7 @@ public abstract class Grader implements Runnable {
 
     /* Formats output to look nice */
     public static String makeOutput(double score, String feedback) {
-        return "Score: " + score + "\nFeedback:" + feedback;
+        return "Score: " + score + "\nFeedback: " + feedback;
     }
 
     /* Print test descriptions neatly */

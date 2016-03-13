@@ -36,6 +36,11 @@ public class EgoGrader extends Grader {
                 break;
             }
         }
+        if (grader.correct < TESTS) {
+        	grader.feedback = "Some tests failed. Please check the following and try again:\nFailed tests will display the first mismatched lines of the output.\n" + grader.feedback;
+        } else {
+        	grader.feedback = "All tests passed. Congrats!\n" + grader.feedback;
+        }
         if (infinite) {
             grader.feedback += "Your program entered an infinite loop or took longer than 30 seconds to finish.";
         }
@@ -43,12 +48,11 @@ public class EgoGrader extends Grader {
     }
 
     /* Main grading method */
-    @Override
     public void run() {
         try {
             Graph graph = new CapGraph();
             GraphLoader.loadGraph(graph, "data/facebook_ucsd.txt");
-            feedback += "\nGRAPH: facebook_ucsd.txt\nFailed tests will display the first mismatched lines of the output.\n";
+            feedback += "\nGRAPH: facebook_ucsd.txt";
             for (int i = 0; i < 10; i++) {
                 feedback += appendFeedback(i + 1, "Starting from node " + i);
                 // Run user's implementation and make the output readable
