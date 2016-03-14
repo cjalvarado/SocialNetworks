@@ -1,6 +1,6 @@
 /**
  * @author UCSD MOOC development team
- * 
+ *
  * Grader for the SCC assignment.
  *
  */
@@ -27,10 +27,11 @@ public class SCCGrader extends Grader {
     private int testsPassed;
 
     public SCCGrader() {
-        totalTests = 0;
+        totalTests = Integer.MAX_VALUE;
         testsPassed = 0;
     }
-    public static void main(String[] args) {
+    @SuppressWarnings("deprecation")
+	public static void main(String[] args) {
         SCCGrader grader = new SCCGrader();
         Thread thread = new Thread(grader);
         thread.start();
@@ -58,20 +59,20 @@ public class SCCGrader extends Grader {
     public void run() {
 
         try {
-            
+
             for(int i = 0; i < 10; i++) {
                 Graph g = new CapGraph();
                 Set<Integer> vertices;
 
-                String answerFile = "data/scc_answers/answer" + (i + 1);
-                GraphLoader.loadGraph(g, "data/scc/T" + (i +1));
+                String answerFile = "data/scc_answers/scc_" + (i + 1) + ".txt";
+                GraphLoader.loadGraph(g, "data/scc/test_" + (i +1)+ ".txt");
                 BufferedReader br = new BufferedReader(new FileReader(answerFile));
                 feedback += appendFeedback(i + 1, "\nGRAPH: T" + (i + 1));
 
                 // build list from answer
                 List<Set<Integer>> answer = new ArrayList<Set<Integer>>();
                 String line;
-                  
+
                 while((line = br.readLine()) != null) {
                     Scanner sc = new Scanner(line);
                     vertices = new TreeSet<Integer>();
@@ -84,11 +85,11 @@ public class SCCGrader extends Grader {
                     sc.close();
                 }
 
-                
+
 
                 // get student SCC result
                 List<Graph> graphSCCs = g.getSCCs();
-                
+
                 List<Set<Integer>> sccs = new ArrayList<Set<Integer>>();
 
                 for(Graph graph : graphSCCs) {
@@ -99,11 +100,11 @@ public class SCCGrader extends Grader {
                     }
                     sccs.add(scc);
                 }
-                       
+
 
                 boolean testFailed = false;
-                totalTests += answer.size() + sccs.size(); 
-                testsPassed += answer.size() + sccs.size(); 
+                totalTests += answer.size() + sccs.size();
+                testsPassed += answer.size() + sccs.size();
 
                 Set<Integer> answerSCC = null;
                 Set<Integer> scc = null;
@@ -118,7 +119,7 @@ public class SCCGrader extends Grader {
                     if(j < sccs.size()) {
                         scc = sccs.get(j);
                     }
-                        
+
 
                     // check if learner result contains SCC from answer file
                     if(!sccs.contains(answerSCC)) {
