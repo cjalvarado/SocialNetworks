@@ -82,9 +82,12 @@ public class EgoGrader extends Grader {
                     
                     // Sets should be equal
                     if (!check.equals(others)) {
-                        feedback += "FAILED. Expected \"" + next + "\" for vertex #" + vertex + ", got \"" + others + "\".";
-                        failed = true;
-                        break;
+                        check.add(i);
+                        if(!check.equals(others)) {
+                            feedback += "FAILED. Expected \"" + check + "\" for vertex #" + vertex + ", got \"" + others + "\".";
+                            failed = true;
+                            break;
+                        }
                     }
                 }
                 if (!failed) {
