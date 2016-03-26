@@ -27,7 +27,7 @@ public class SCCGrader extends Grader {
     private int testsPassed;
 
     public SCCGrader() {
-        totalTests = Integer.MAX_VALUE;
+        totalTests = 0;
         testsPassed = 0;
     }
     @SuppressWarnings("deprecation")
@@ -50,6 +50,8 @@ public class SCCGrader extends Grader {
         	grader.feedback = "All tests passed. Congrats!\n" + grader.feedback;
         }
         if (infinite) {
+            testsPassed = 0;
+            totalTests = 1;
             grader.feedback += "Your program entered an infinite loop or took longer than 30 seconds to finish.";
         }
         System.out.println(makeOutput((double)grader.testsPassed/grader.totalTests, grader.feedback));
@@ -103,8 +105,8 @@ public class SCCGrader extends Grader {
 
 
                 boolean testFailed = false;
-                totalTests += answer.size() + sccs.size();
                 testsPassed += answer.size() + sccs.size();
+                totalTests += answer.size() + sccs.size();
 
                 Set<Integer> answerSCC = null;
                 Set<Integer> scc = null;
@@ -176,6 +178,8 @@ public class SCCGrader extends Grader {
             }
         } catch (Exception e) {
             feedback = "An error occurred during runtime.\n" + feedback + "\nError during runtime: " + e;
+            testsPassed = 0;
+            totalTests = 1;
         }
     }
 }
