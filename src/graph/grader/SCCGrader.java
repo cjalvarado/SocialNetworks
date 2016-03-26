@@ -23,8 +23,8 @@ import graph.CapGraph;
 import graph.Graph;
 
 public class SCCGrader extends Grader {
-    private int totalTests;
-    private int testsPassed;
+    public int totalTests;
+    public int testsPassed;
 
     public SCCGrader() {
         totalTests = 0;
