@@ -50,8 +50,8 @@ public class SCCGrader extends Grader {
         	grader.feedback = "All tests passed. Congrats!\n" + grader.feedback;
         }
         if (infinite) {
-            testsPassed = 0;
-            totalTests = 1;
+            grader.testsPassed = 0;
+            grader.totalTests = 1;
             grader.feedback += "Your program entered an infinite loop or took longer than 30 seconds to finish.";
         }
         System.out.println(makeOutput((double)grader.testsPassed/grader.totalTests, grader.feedback));
